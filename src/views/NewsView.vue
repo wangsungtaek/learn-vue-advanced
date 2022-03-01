@@ -1,11 +1,16 @@
 <template>
     <div>
-        <div v-for="user in this.$store.state.news" v-bind:key="user.title">{{ user.title }}</div>
+        <div v-for="user in getNews" v-bind:key="user.title">{{ user.title }}</div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
+    computed: {
+        ...mapGetters(['getNews']),
+    },
     created() {
         this.$store.dispatch('FETCH_NEWS');
     }
