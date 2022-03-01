@@ -1,19 +1,17 @@
 <template>
     <div>
         <section>
-            <div class="user-container">
-                <div>
-                    User
-                </div>
-                <div class="user-description">
+            <!-- 사용자 정보 -->
+            <user-profile>
+                <div slot="username">
                     <router-link v-bind:to="`/user/${getItem.user}`">
                         {{ getItem.user }}
                     </router-link>
                 </div>
-                <div class="time">
-                    {{ getItem.time_ago }}
-                </div>
-            </div>
+                <template slot="time">{{ 'Posted ' + getItem.time_ago }},</template>
+            </user-profile>
+        </section>
+        <section>
             <h2>{{ getItem.title }}</h2>
         </section>
         <hr>
@@ -25,6 +23,7 @@
 </template>
 
 <script>
+import UserProfile from '../components/Userprofile.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -35,6 +34,9 @@ export default {
         const askid = this.$route.params.id;
         
         this.$store.dispatch("FETCH_ITEM", askid);
+    },
+    components: {
+        UserProfile,
     }
 }
 </script>
